@@ -19,8 +19,10 @@ class Tangent(Function):
             worldX = self.coordinate.screenToWorld((screenX,0))[0]
             worldY = self.func(worldX)
             if worldY == None or -resolution/self.coordinate.pixelPerUnit < (worldX+ math.pi/2)%math.pi < resolution/self.coordinate.pixelPerUnit:
+                points.append((screenX, 0))
                 if(len(points) >= 2): pygame.draw.lines(display, 'black', False, points)
                 points.clear()
+                points.append((screenX, WINDOW_SIZE[1]))
             else:
                 points.append((screenX, self.coordinate.worldToScreen((0, worldY))[1]))
-        pygame.draw.lines(display, 'black', False, points)
+        if(len(points) >= 2): pygame.draw.lines(display, 'black', False, points)

@@ -11,11 +11,17 @@ class Function(ABC):
     @abstractmethod
     def func(self, x:float):
         pass
+    def derivative(self, x:float, dx: float = 0.01):
+        return (self.func(x+dx)-self.func(x))/dx
+    
+    def acceleration(self, x:float, dx: float = 0.5):
+        return (self.derivative(x+dx)-self.derivative(x))/dx
 
     def drawFunction(self, display, resolution = 10):
         from gameloop import WINDOW_SIZE
         points = []
-        for screenX in range(0, WINDOW_SIZE[0] ,resolution):
+        screenX = 0
+        while screenX <= WINDOW_SIZE[0]:
             worldX = self.coordinate.screenToWorld((screenX,0))[0]
             worldY = self.func(worldX)
             if worldY == None:
@@ -23,4 +29,5 @@ class Function(ABC):
                 points.clear()
             else:
                 points.append((screenX, self.coordinate.worldToScreen((0, worldY))[1]))
-        pygame.draw.lines(display, 'black', False, points)
+            screenX += min(resolution, max(1,WINDOW_SIZE[0]-screenX))
+        if(len(points) >= 2):pygame.draw.lines(display, 'black', False, points)

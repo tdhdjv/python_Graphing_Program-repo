@@ -22,5 +22,5 @@ class LogFunc(Function):
                 if(len(points) >= 2): pygame.draw.lines(display, 'black', False, points)
                 points.clear()
             else:
-                points.append((self.coordinate.worldToScreen((worldX, 0))[0], screenY))
+                points.append((self.coordinate.worldToScreen((worldX+1, 0))[0], screenY))
         pygame.draw.lines(display, 'black', False, points)

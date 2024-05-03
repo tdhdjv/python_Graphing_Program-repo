@@ -14,16 +14,11 @@ class Game:
     def __init__(self):
         self.coordinate = Coordinate()
         self._functions = []
-        self._functions.append(TestFunction(self.coordinate))
-        self._functions.append(Polynomial(self.coordinate, {3: 2, 2:-3, 1:0, 0: 1}))
-        self._functions.append(Exponential(self.coordinate, 0.5))
-        self._functions.append(LogFunc(self.coordinate))
-        self._functions.append(Sine(self.coordinate))
-        self._functions.append(Cosine(self.coordinate))
         self._functions.append(Tangent(self.coordinate))
+        self._functions.append(LogFunc(self.coordinate))
     def render(self, display: SurfaceType):
         self.coordinate.renderCoordinate(display)
         for function in self._functions:
             function.drawFunction(display)
     def update(self, dt:float):
-        pass
+        self.coordinate.update(dt)

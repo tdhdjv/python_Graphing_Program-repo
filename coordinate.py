@@ -4,6 +4,17 @@ class Coordinate:
     def __init__(self):
         self.originWorldPos = (130, 500)
         self.pixelPerUnit = 100
+        self.previousMousePos = (0, 0)
+        self.currentMousePos = (0, 0)
+
+    def update(self, dx:float):
+        self.previousMousePos = self.currentMousePos
+        self.currentMousePos = pygame.mouse.get_pos()
+        movementX = self.currentMousePos[0]-self.previousMousePos[0]
+        movementY = self.currentMousePos[1]-self.previousMousePos[1]
+
+        if pygame.mouse.get_pressed()[0]:
+            self.originWorldPos = (self.originWorldPos[0]+movementX, self.originWorldPos[1]+movementY)
     
     def worldToScreen(self, point:tuple):
         x, y = point[0],  point[1]

@@ -38,6 +38,7 @@ class Gameloop:
             currentTime = time.time()
             dt = currentTime - previousTime
             #update
+            self._game.update(dt)
             updateAmount += 1
             #render
             self.render()
